@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Interfaces\Repository\IPersonaRepository.cs" />
+    <Compile Remove="Services\PersonaService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Aggregate\" />
+    <Folder Include="Enum\" />
+    <Folder Include="Interfaces\Services\" />
+    <Folder Include="Services\" />
+    <Folder Include="Validations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.1" />
+  </ItemGroup>
+
+</Project>

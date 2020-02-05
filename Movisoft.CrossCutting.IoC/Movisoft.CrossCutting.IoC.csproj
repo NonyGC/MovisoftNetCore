@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Movisoft.Aplication\Movisoft.Aplication.csproj" />
+    <ProjectReference Include="..\Movisoft.CrossCutting.Identity\Movisoft.CrossCutting.Identity.csproj" />
+    <ProjectReference Include="..\Movisoft.Domain\Movisoft.Domain.csproj" />
+    <ProjectReference Include="..\Movisoft.Infra.Data\Movisoft.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
