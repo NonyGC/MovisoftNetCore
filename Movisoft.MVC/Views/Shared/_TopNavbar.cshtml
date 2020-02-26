@@ -1,22 +1,43 @@
-﻿<div class="row border-bottom">
+﻿@using Microsoft.AspNetCore.Identity
+@using Movisoft.CrossCutting.Identity.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="row border-bottom">
     <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="post" action="">
-                <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div>
-            </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li style="padding:20px">
-                <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Seed Project</span>
+                <span class="m-r-sm text-muted welcome-message">Bienvenido a Movisoft</span>
             </li>
-            <li>
-                <a href="#">
-                    <i class="fa fa-sign-out"></i> Cerrar sesión
-                </a>
-            </li>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li>
+                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-sign-out"></i> Cerrar sesión</button>
+                    </form>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión</a>
+                </li>
+            }
+
         </ul>
     </nav>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    @*<breadcrumb> </breadcrumb>*@
+    <div class="col-lg-10">
+
+    </div>  
+    <div class="col-lg-2">
+        
+    </div>
 </div>

@@ -94,15 +94,16 @@ namespace Movisoft.CrossCutting.Identity.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //// get the configuration from the app settings
-            //var config = new ConfigurationBuilder()
-            //    .SetBasePath(_env.ContentRootPath)
-            //    .AddJsonFile("appsettings.json")
-            //    .Build();
+            // get the configuration from the app settings
+            var config = new ConfigurationBuilder()
+                .SetBasePath(_env.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .Build();
 
-            //// define the database to use
-            //optionsBuilder.UseNpgsql(config.GetConnectionString("IdentityConnection"));
-            optionsBuilder.UseNpgsql("Server=127.0.0.1;Database=MovisoftIdentity;Username=postgres;Password=Jscript0");
+            // define the database to use
+            optionsBuilder.UseNpgsql(config.GetConnectionString("IdentityConnection"));
+
+            //optionsBuilder.UseNpgsql("Server=127.0.0.1;Database=MovisoftIdentity;Username=postgres;Password=Jscript0");
         }
 
         public DbSet<Menu> Menu { get; set; }

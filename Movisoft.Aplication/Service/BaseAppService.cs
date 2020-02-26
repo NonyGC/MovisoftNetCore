@@ -35,7 +35,7 @@ namespace Movisoft.Aplication.Service
 
         public ObjectDTO GetById(int? id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<ObjectDTO>(_dapperRepository.GetById(id));
         }
 
         public void Remove(ObjectDTO obj)

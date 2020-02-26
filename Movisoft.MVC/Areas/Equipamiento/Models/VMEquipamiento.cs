@@ -9,5 +9,9 @@ namespace Movisoft.MVC.Areas.Equipamiento.Models
     public class VMEquipamiento
     {
         public List<SeequipoDTO> ListaSetipequipo { get; set; }
+        public string Mensaje { get; internal set; }
+        public int Estado { get; set; }
+        public List<SelectListItemDTO> ListSelectItem { get; internal set; }
+        public List<List<SelectListItemDTO>> ListSelectItems { get; set; }
     }
 }

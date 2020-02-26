@@ -16,6 +16,7 @@ namespace Movisoft.Infra.Data.UoW
             _configuration = configuration;
             Id = Guid.NewGuid();
             _connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+            _connection.Open();
         }
         public IDbTransaction Transaction { get; private set; }
         public IDbConnection Connection => _connection;

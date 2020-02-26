@@ -9,9 +9,9 @@ using System.Text;
 
 namespace Movisoft.Aplication.Service
 {
-    public class SetipequipoAppService : BaseAppService<SetipequipoDTO, Setipequipo>, ISetipequipoAppService
+    public class TipequipoAppService : BaseAppService<SetipequipoDTO, Setipequipo>, ITipequipoAppService
     {
-        public SetipequipoAppService(IDapperRepository<Setipequipo> dapperRepository, IMapper mapper) 
+        public TipequipoAppService(IDapperRepository<Setipequipo> dapperRepository, IMapper mapper) 
             : base(dapperRepository, mapper)
         {
         }

@@ -67,7 +67,7 @@ namespace Movisoft.Infra.Data {
         ///  &lt;Sql&gt;
         ///    &lt;key&gt;ObtenerListaEquipos&lt;/key&gt;
         ///    &lt;query&gt;
-        ///      select * from se_equipo se
+        ///      select se.*,te.*,tp.*,ep.* from se_equipo se
         ///      inner join se_tipequipo te on te.tequicodi=se.tequicodi
         ///      inner join se_topologia tp on tp.topcodi=se.topcodi
         ///      inner join si_empresa ep on ep.emprcodi=se.emprcodi
@@ -80,6 +80,16 @@ namespace Movisoft.Infra.Data {
         internal static string Seequipo {
             get {
                 return ResourceManager.GetString("Seequipo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///.
+        /// </summary>
+        internal static string Siempresa {
+            get {
+                return ResourceManager.GetString("Siempresa", resourceCulture);
             }
         }
     }

@@ -7,5 +7,6 @@ namespace Movisoft.Domain.Interfaces.Repository
 {
     public interface ISiempresaRepository : IDapperRepository<Siempresa>
     {
+        IEnumerable<Siempresa> ObtenerListSelectItem();
     }
 }

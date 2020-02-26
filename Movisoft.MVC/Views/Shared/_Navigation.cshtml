@@ -1,32 +1,89 @@
-﻿<nav class="navbar-default navbar-static-side" role="navigation">
+﻿@using Microsoft.AspNetCore.Identity
+@using Movisoft.CrossCutting.Identity.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject Movisoft.CrossCutting.Identity.Services.IMenuService mService;
+
+<nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
-            <li class="nav-header">
-                <div class="dropdown profile-element">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">Username</span>
-                        <span class="text-muted text-xs block">Title <b class="caret"></b></span>
-                    </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs" style="position: absolute; top: 91px; left: 0px; will-change: top, left;">
-                        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
-                    </ul>
-                </div>
-                <div class="logo-element">
-                    IN+
-                </div>
-            </li>
 
-            @if (User.Identity.IsAuthenticated)
+            @if (SignInManager.IsSignedIn(User))
             {
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="block m-t-xs font-bold">@UserManager.GetUserName(User).ToUpper()</span>
+                            <span class="text-muted text-xs block">@mService.ObtenerRolesPorUsuario(User) <b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs" style="position: absolute; top: 91px; left: 0px; will-change: top, left;">
+                            <li class="nav-item">
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
+                </li>
 
+                <li>
+                    <a href="@Url.Action("Main", "Home",new { area = "" })"><i class="fa fa-diamond"></i><span>Inicio</span> </a>
+                </li>
 
+                var lstMenu = mService.ObtenerListaMenuPorUsuario(User);
+
+                @foreach (var item in lstMenu.Where(x => !x.ParentId.HasValue))
+                {
+                    var listSecondLevel = lstMenu.Where(x => x.ParentId == item.Id).ToList();
+                    <li>
+                        <a asp-area="@item.AreaName" asp-controller="@item.ControllerName" asp-action="@item.ActionName">
+                            <i class="@item.IconName"></i> <span class="nav-label">@item.Name</span>
+                            @if (listSecondLevel.Any()) {
+                                <span class="fa arrow"></span>
+                            }
+                        </a>
+
+                        @if (listSecondLevel.Any())
+                        {
+                            <ul class="nav nav-second-level">
+                                @foreach (var item2 in listSecondLevel)
+                                {
+                                    var listThirdLevel = lstMenu.Where(x => x.ParentId == item2.Id).ToList();
+
+                                    <li>
+                                        <a asp-area="@item2.AreaName" asp-controller="@item2.ControllerName" asp-action="@item2.ActionName">
+                                            <i class="@item2.IconName"></i> @item2.Name
+
+                                            @if (listThirdLevel.Any())
+                                            {
+                                                <span class="fa arrow"></span>
+                                            }
+                                        </a>
+
+                                        @if (listThirdLevel.Any())
+                                        {
+                                            <ul class="nav nav-third-level">
+                                                @foreach (var item3 in listThirdLevel)
+                                                {
+                                                    <li>
+                                                        <a asp-area="@item3.AreaName" asp-controller="@item3.ControllerName" asp-action="@item3.ActionName">
+                                                            <i class="@item3.IconName"></i> @item3.Name
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
             }
-            <li class="@Html.IsSelected(controller: "Home", action: "Main")">
-                <a href="@Url.Action("Main", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">Main</span> <span class="label label-primary float-right">Main</span></a>
-            </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">Minor</span></a>
-            </li>
         </ul>
     </div>
 </nav>

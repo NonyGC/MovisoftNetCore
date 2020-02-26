@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Sqls>
+
+  <Sql>
+    <key>ObtenerListSelectItem</key>
+    <query>
+      select emprcodi,emprnomb from si_empresa
+    </query>
+  </Sql>
+
+</Sqls>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Movisoft.Aplication.Interface
 {
-    public interface ISetipequipoAppService : IBaseAppService<SetipequipoDTO>
+    public interface ITipequipoAppService : IBaseAppService<SetipequipoDTO>
     {
     }
 }

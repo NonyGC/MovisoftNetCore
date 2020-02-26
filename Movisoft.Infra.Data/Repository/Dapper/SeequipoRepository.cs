@@ -1,10 +1,12 @@
 ﻿using Dapper;
+using Dommel;
 using Microsoft.Extensions.Configuration;
 using Movisoft.Domain.Entity;
 using Movisoft.Domain.Interfaces.Repository;
 using Movisoft.Infra.Data.Helper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -30,6 +32,12 @@ namespace Movisoft.Infra.Data.Repository.Dapper
                     return equipo;
 
                 }, splitOn: "tequicodi,topcodi,emprcodi").AsList();
+        }
+
+
+        public int Save(Seequipo seequipo, IDbConnection connection, IDbTransaction transaction)
+        {
+            return (int)connection.Insert(seequipo, transaction);
         }
     }
 }

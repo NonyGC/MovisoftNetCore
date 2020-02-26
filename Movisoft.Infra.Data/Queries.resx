@@ -121,4 +121,7 @@
   <data name="Seequipo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resource\Seequipo.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="Siempresa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resource\Siempresa.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

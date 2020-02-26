@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Movisoft.CrossCutting.Identity.Services;
 using Movisoft.MVC.Models;
+using SmartBreadcrumbs.Attributes;
 
 namespace Movisoft.MVC.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMenuService _menuService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMenuService menuService)
         {
             _logger = logger;
+            _menuService = menuService;
         }
 
-
-        //[Authorize]
         public IActionResult Main()
         {
             return View();

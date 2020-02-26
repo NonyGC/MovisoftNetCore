@@ -9,19 +9,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\toastr\LICENSE" />
+    <None Include="wwwroot\lib\toastr\README.md" />
+    <None Include="wwwroot\lib\toastr\toastr.js" />
+    <None Include="wwwroot\lib\toastr\toastr.js.map" />
+    <None Include="wwwroot\lib\toastr\toastr.less" />
+    <None Include="wwwroot\lib\toastr\toastr.min.js" />
+    <None Include="wwwroot\lib\toastr\toastr.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="SmartBreadcrumbs" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Movisoft.Aplication\Movisoft.Aplication.csproj" />
     <ProjectReference Include="..\Movisoft.CrossCutting.Identity\Movisoft.CrossCutting.Identity.csproj" />
     <ProjectReference Include="..\Movisoft.CrossCutting.IoC\Movisoft.CrossCutting.IoC.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Equipamiento\Data\" />
   </ItemGroup>
 
 

@@ -11,6 +11,7 @@ using Movisoft.CrossCutting.Identity.Data;
 using Movisoft.CrossCutting.Identity.Models;
 using Movisoft.CrossCutting.IoC;
 using Movisoft.MVC.Extensions;
+using SmartBreadcrumbs.Extensions;
 
 namespace Movisoft.MVC
 {
@@ -30,7 +31,9 @@ namespace Movisoft.MVC
                 options.UseNpgsql(Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>
@@ -77,6 +80,17 @@ namespace Movisoft.MVC
             services.AddControllersWithViews();
 
             services.AddAutoMapperSetup();
+
+            services.AddHttpContextAccessor();
+
+            //services.AddBreadcrumbs(GetType().Assembly, options =>
+            //{
+            //    options.TagName = "nav";
+            //    options.TagClasses = "col-lg-10";
+            //    options.OlClasses = "breadcrumb";
+            //    options.LiClasses = "breadcrumb-item";
+            //    options.ActiveLiClasses = "breadcrumb-item active";
+            //});
 
             // Agregar dependencias de otras capas(aislado de Presentation)
             NativeInjectorBootStrapper.RegisterServices(services);

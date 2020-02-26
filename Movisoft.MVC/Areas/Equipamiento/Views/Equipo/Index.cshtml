@@ -1,27 +1,17 @@
-﻿@model List<Movisoft.Aplication.DTO.SeequipoDTO>
+﻿@model Movisoft.MVC.Areas.Equipamiento.Models.VMEquipamiento
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Static Tables</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="/">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a>Tables</a>
-            </li>
-            <li class="active breadcrumb-item">
-                <strong>Static Tables</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-lg-2">
 
-    </div>
-</div>
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/toastr/toastr.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
+    </environment>
+}
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -54,7 +44,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.ListaSetipequipo)
                             {
                                 <tr>
                                     <td>@item.Equicodi</td>
@@ -63,7 +53,9 @@
                                     <td>@item.Setopologia.Topnombre</td>
                                     <td>@item.Setipequipo.Tequinomb</td>
                                     <td>@item.Siempresa.Emprnomb</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="#"><i class="fa fa-check text-navy"></i></a>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -83,36 +75,55 @@
                 <h4 class="modal-title">Equipo</h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="frmEquipo">
+                    @Html.AntiForgeryToken()
                     <div class="form-group row">
                         <label for="cboTopologia" class="col-sm-2 col-form-label">Topologia</label>
                         <div class="col-sm-4">
-                            <select class="form-control" id="cboTopologia"></select>
+                            <select class="form-control" id="cboTopologia" name="Topcodi">
+                                <option disabled selected>[Selecionar]</option>
+                                @foreach (var item in Model.ListSelectItems[0])
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="cboTipoequipo" class="col-sm-2 col-form-label">Tipo Equipo</label>
                         <div class="col-sm-4">
-                            <select class="form-control" id="cboTipoequipo"></select>
+                            <select class="form-control" id="cboTipoequipo" name="Tequicodi">
+                                <option disabled selected>[Selecionar]</option>
+                                @foreach (var item in Model.ListSelectItems[1])
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
                         </div>
                         <label for="cboEmpresa" class="col-sm-2 col-form-label">Empresa</label>
                         <div class="col-sm-4">
-                            <select class="form-control" id="cboEmpresa"></select>
+                            <select class="form-control" id="cboEmpresa" name="Emprcodi">
+                                <option disabled selected>[Selecionar]</option>
+                                @foreach (var item in Model.ListSelectItems[2])
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="lblNombre" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="lblNombre">
+                            <input type="text" class="form-control" id="lblNombre" name="Equinombre">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="lblAbrev" class="col-sm-2 col-form-label">Abreviatura</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="lblAbrev">
+                            <input type="text" class="form-control" id="lblAbrev" name="Equiabrev">
                         </div>
                     </div>
 
@@ -129,5 +140,13 @@
 
 
 @section scripts{
+    <environment names="Development">
+        <script src="~/lib/toastr/toastr.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/toastr/toastr.min.js"></script>
+    </environment>
+
+    <script src="~/js/general.js" asp-append-version="true"></script>
     <script src="~/js/equipamiento/equipo.js" asp-append-version="true"></script>
 }

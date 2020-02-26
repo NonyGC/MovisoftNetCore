@@ -12,8 +12,6 @@
   <ItemGroup>
     <Folder Include="Aggregate\" />
     <Folder Include="Enum\" />
-    <Folder Include="Interfaces\Services\" />
-    <Folder Include="Services\" />
     <Folder Include="Validations\" />
   </ItemGroup>
 

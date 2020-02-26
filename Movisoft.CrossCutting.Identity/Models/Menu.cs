@@ -16,6 +16,7 @@ namespace Movisoft.CrossCutting.Identity.Models
         public string ActionName { get; set; }
         public string State { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string IconName { get; set; }
 
         public ICollection<MenuRole> MenuRoles { get; set; }
     }

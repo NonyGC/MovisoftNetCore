@@ -6,8 +6,9 @@ using System.Text;
 
 namespace Movisoft.Aplication.Interface
 {
-    public interface ISeequipoAppService : IBaseAppService<SeequipoDTO>
+    public interface IEquipoAppService : IBaseAppService<SeequipoDTO>
     {
         List<SeequipoDTO> ObtenerListaEquipos();
+        int? Save(SeequipoDTO seequipoDTO);
     }
 }
