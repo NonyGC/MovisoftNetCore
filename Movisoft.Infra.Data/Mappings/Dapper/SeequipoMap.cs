@@ -11,7 +11,7 @@ namespace Movisoft.Infra.Data.Mappings.Dapper
         public SeequipoMap()
         {
             ToTable("se_equipo");
-            Map(p => p.Equicodi).IsKey();
+            Map(p => p.Equicodi).IsKey().IsIdentity();
         }
     }
 }

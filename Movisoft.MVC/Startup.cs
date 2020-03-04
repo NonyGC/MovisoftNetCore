@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -75,22 +77,17 @@ namespace Movisoft.MVC
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
+                .AddFluentValidation(fv => {
+                    fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                }); ;
 
             services.AddControllersWithViews();
 
             services.AddAutoMapperSetup();
 
             services.AddHttpContextAccessor();
-
-            //services.AddBreadcrumbs(GetType().Assembly, options =>
-            //{
-            //    options.TagName = "nav";
-            //    options.TagClasses = "col-lg-10";
-            //    options.OlClasses = "breadcrumb";
-            //    options.LiClasses = "breadcrumb-item";
-            //    options.ActiveLiClasses = "breadcrumb-item active";
-            //});
 
             // Agregar dependencias de otras capas(aislado de Presentation)
             NativeInjectorBootStrapper.RegisterServices(services);

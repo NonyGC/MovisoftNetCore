@@ -14,10 +14,7 @@ namespace Movisoft.MVC.Extensions
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-            //services.AddAutoMapper(typeof(Startup));
-
-            //// Registering Mappings automatically only works if the 
-            //AutoMapperConfig.RegisterMappings();
+            // Registering Mappings automatically only works if the 
             services.AddAutoMapper(AutoMapperConfig.RegisterMappings());
         }
     }

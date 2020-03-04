@@ -1,5 +1,4 @@
-﻿using Movisoft.CrossCutting.Common.Helper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +9,6 @@ namespace Movisoft.Infra.Data.Helper
         public SeequipoHelper() : base(Queries.Seequipo)
         {
         }
-        public string SqlObtenerListaEquipos => GetSqlXml("ObtenerListaEquipos"); 
+        public string SqlObtenerListaEquipos => GetSqlXml("ObtenerListaEquipos");
     }
 }

@@ -20,17 +20,17 @@ namespace Movisoft.Infra.Data.Repository.Dapper
             _seequipoHelper = seequipoHelper;
         }
 
-        public List<Seequipo> ObtenerListaEquipos()
+        public List<Seequipo> ObtenerListaPorEstado(string estado)
         {
+            var sqlQuery = string.Format(_seequipoHelper.SqlObtenerListaEquipos, estado);
             return dbConnection
                 .Query<Seequipo, Setipequipo, Setopologia, Siempresa, Seequipo>
-                (_seequipoHelper.SqlObtenerListaEquipos, (equipo, tequipo, topologia, empresa) =>
+                (sqlQuery, (equipo, tequipo, topologia, empresa) =>
                 {
                     equipo.Setopologia = topologia;
                     equipo.Siempresa = empresa;
                     equipo.Setipequipo = tequipo;
                     return equipo;
-
                 }, splitOn: "tequicodi,topcodi,emprcodi").AsList();
         }
 

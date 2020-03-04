@@ -13,6 +13,7 @@ namespace Movisoft.Aplication.AutoMapper
         {
             CreateMap<Seequipo, SeequipoDTO>();
             CreateMap<Setipequipo, SetipequipoDTO>();
+            CreateMap<Setopologia, SetopologiaDTO>();
         }
     }
 }

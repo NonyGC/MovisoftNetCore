@@ -11,7 +11,7 @@ namespace Movisoft.Infra.Data.Mappings.Dapper
         public SetipequipoMap()
         {
             ToTable("se_tipequipo");
-            Map(p => p.Tequicodi).IsKey();
+            Map(p => p.Tequicodi).IsKey().IsIdentity();
         }
     }
 }

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Movisoft.Aplication.Interface
 {
-    public interface IBaseAppService<TEntity> : IDisposable where TEntity : class
+    public interface IBaseAppService <ObjectDTO, TEntity> : IDisposable
+        where ObjectDTO : class
+        where TEntity : class
     {
-        void Add(TEntity obj);
-        TEntity GetById(int? id);
-        IEnumerable<TEntity> GetAll();
-        void Update(TEntity obj);
-        void Remove(TEntity obj);
+        object Add(ObjectDTO obj);
+        ObjectDTO GetById(int? id);
+        IEnumerable<ObjectDTO> GetAll();
+        bool Update(ObjectDTO obj);
+        bool Remove(ObjectDTO obj);
+        IEnumerable<ObjectDTO> GetList(Expression<Func<TEntity, bool>> predicate);
     }
 }

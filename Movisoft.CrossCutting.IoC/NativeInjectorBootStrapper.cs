@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Movisoft.Aplication.DTO;
 using Movisoft.Aplication.Interface;
+using Movisoft.Aplication.Interface.Entity;
 using Movisoft.Aplication.Service;
+using Movisoft.Aplication.Service.Entity;
+using Movisoft.Aplication.Validations;
 using Movisoft.CrossCutting.Identity.Models;
 using Movisoft.CrossCutting.Identity.Services;
 using Movisoft.Domain.Interfaces;
@@ -29,17 +34,39 @@ namespace Movisoft.CrossCutting.IoC
 
             // ASP.NET Authorization Polices
 
+            #region 3 - Aplicacion
 
             // Application
             services.AddScoped<ISharedAppService, SharedAppService>();
-            services.AddScoped<IEquipoAppService, EquipoAppService>();
-            services.AddScoped<ITipequipoAppService, TipequipoAppService>();
+            services.AddScoped<ISeequipoAppService, SeequipoAppService>();
+            services.AddScoped<ISetipequipoAppService, SetipequipoAppService>();
+            services.AddScoped<ISetopologiaAppService, SetopologiaAppService>();
+
+            //Validacion
+            services.AddScoped<SeequipoValidadorInsertar>();
+            services.AddScoped<SeequipoValidadorActualizar>();
+
+            services.AddScoped<SetipequipoValidadorActualizar>();
+            services.AddScoped<SetipequipoValidadorInsertar>();
+
+            services.AddScoped<SetopologiaValidadorInsertar>();
+            services.AddScoped<SetopologiaValidadorActualizar>();
+
+            #endregion
+
+            #region 4 - Dominio
 
             // Domain - Events
 
             // Domain
 
             services.AddScoped<ISeequipoService, SeequipoService>();
+
+
+
+            #endregion
+
+            #region 5 - Infraestructura
 
             // Infra - Data
             services.AddScoped<MovisoftContext>();
@@ -64,6 +91,8 @@ namespace Movisoft.CrossCutting.IoC
             services.AddScoped<RoleManager<ApplicationRole>>();
             services.AddScoped<IUser, AspNetUser>();
             services.AddScoped<IMenuService, MenuService>();
+
+            #endregion
         }
     }
 }

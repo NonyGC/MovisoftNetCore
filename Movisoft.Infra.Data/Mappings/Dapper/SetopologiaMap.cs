@@ -11,7 +11,7 @@ namespace Movisoft.Infra.Data.Mappings.Dapper
         public SetopologiaMap()
         {
             ToTable("se_topologia");
-            Map(p => p.Topcodi).IsKey();
+            Map(p => p.Topcodi).IsKey().IsIdentity();
         }
     }
 }

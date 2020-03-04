@@ -1,26 +1,28 @@
 ﻿using AutoMapper;
+using Movisoft.Aplication.Interface;
 using Movisoft.Domain.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 
 namespace Movisoft.Aplication.Service
 {
-    public class BaseAppService<ObjectDTO, TEntity> 
-        where ObjectDTO : class 
+    public class BaseAppService<ObjectDTO, TEntity> : IBaseAppService<ObjectDTO, TEntity>
+        where ObjectDTO : class
         where TEntity : class
     {
-        public readonly IDapperRepository<TEntity> _dapperRepository;
-        public readonly IMapper _mapper;
+        private readonly IDapperRepository<TEntity> _dapperRepository;
+        protected readonly IMapper _mapper;
         public BaseAppService(IDapperRepository<TEntity> dapperRepository, IMapper mapper)
         {
             _dapperRepository = dapperRepository;
             _mapper = mapper;
         }
-        public void Add(ObjectDTO obj)
+
+        public object Add(ObjectDTO obj)
         {
-            throw new NotImplementedException();
+           return _dapperRepository.Add(_mapper.Map<TEntity>(obj));
         }
 
         public void Dispose()
@@ -38,14 +40,19 @@ namespace Movisoft.Aplication.Service
             return _mapper.Map<ObjectDTO>(_dapperRepository.GetById(id));
         }
 
-        public void Remove(ObjectDTO obj)
+        public bool Remove(ObjectDTO obj)
         {
-            throw new NotImplementedException();
+            return _dapperRepository.Remove(_mapper.Map<TEntity>(obj));
         }
 
-        public void Update(ObjectDTO obj)
+        public bool Update(ObjectDTO obj)
         {
-            throw new NotImplementedException();
+            return _dapperRepository.Update(_mapper.Map<TEntity>(obj));
+        }
+
+        public IEnumerable<ObjectDTO> GetList(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _mapper.Map<IEnumerable<ObjectDTO>>(_dapperRepository.GetList(predicate)).AsEnumerable();
         }
     }
 }

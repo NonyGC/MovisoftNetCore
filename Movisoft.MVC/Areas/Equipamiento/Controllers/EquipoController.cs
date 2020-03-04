@@ -1,32 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Movisoft.Aplication.DTO;
 using Movisoft.Aplication.Interface;
-using Movisoft.CrossCutting.Common;
+using Movisoft.Aplication.Interface.Entity;
+using Movisoft.Aplication.Validations;
 using Movisoft.MVC.Areas.Equipamiento.Models;
-using Movisoft.MVC.Controllers;
-using SmartBreadcrumbs.Attributes;
 
 namespace Movisoft.MVC.Areas.Equipamiento.Controllers
 {
     [Area("Equipamiento")]
+    [Authorize]
     public class EquipoController : Controller
     {
         private readonly ILogger<EquipoController> _logger;
-        private readonly IEquipoAppService _equipoAppService;
-        private readonly ITipequipoAppService _setipequipoAppService;
+        private readonly ISeequipoAppService _equipoAppService;
         private readonly ISharedAppService _sharedAppService;
 
-        public EquipoController(ILogger<EquipoController> logger, IEquipoAppService equipamientoAppService,
-            ITipequipoAppService setipequipoAppService, ISharedAppService sharedAppService)
+        public EquipoController(ILogger<EquipoController> logger,
+            ISeequipoAppService equipamientoAppService, ISharedAppService sharedAppService)
         {
             _logger = logger;
             _equipoAppService = equipamientoAppService;
-            _setipequipoAppService = setipequipoAppService;
             _sharedAppService = sharedAppService;
         }
 
@@ -37,22 +35,17 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
 
             try
             {
-                model.ListaSetipequipo = _equipoAppService.ObtenerListaEquipos();
-
                 model.ListSelectItems = new List<List<SelectListItemDTO>>()
                 {
                     _sharedAppService.ObtenerSelectItemTopologia(),
                     _sharedAppService.ObtenerSelectItemTipoEquipo(),
                     _sharedAppService.ObtenerSelectItemEmpresa()
                 };
-
-                model.Estado = (int)Constantes.Estado.Ok;
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                model.Mensaje = e.Message;
-                model.Estado = (int)Constantes.Estado.Error;
+                return NotFound(e.Message);
             }
 
             return View(model);
@@ -62,62 +55,114 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         // POST: Seequipo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SeequipoDTO seequipoDTO)
+        public ActionResult Create(SeequipoDTO seequipoDTO, [FromServices] SeequipoValidadorInsertar validationRules)
         {
-            var model = new VMEquipamiento();
             try
             {
-                var id = _equipoAppService.Save(seequipoDTO);
+                var validador = validationRules.Validate(seequipoDTO);
 
-                model.Estado = id.HasValue ? (int)Constantes.Estado.Ok : (int)Constantes.Estado.Error;
+                if (!validador.IsValid)
+                    return BadRequest(validador);
+
+                var id = _equipoAppService.Insertar(seequipoDTO);
+
+                if (id.HasValue)
+                    return Ok();
+
+                return BadRequest();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                model.Mensaje = e.Message;
-                model.Estado = (int)Constantes.Estado.Error;
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
 
-            return Json(model);
         }
 
         // POST: Seequipo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, SeequipoDTO seequipoDTO, [FromServices] SeequipoValidadorActualizar validationRules)
         {
             try
             {
-                // TODO: Add update logic here
+                var validador = validationRules.Validate(seequipoDTO);
 
-                return RedirectToAction(nameof(Index));
+                if (!validador.IsValid)
+                    return BadRequest(validador);
+
+                var exito = _equipoAppService.Actualizar(seequipoDTO);
+                if (exito)
+                    return Ok();
+
+                return BadRequest();
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                _logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET: Seequipo/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: Seequipo/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpDelete]
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                if (id == default)
+                    BadRequest();
 
-                return RedirectToAction(nameof(Index));
+                bool exito = _equipoAppService.ActualizarAEstadoInactivo(id);
+
+                if (exito)
+                    return Ok();
+
+                return BadRequest();
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                _logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            try
+            {
+                var model = new VMEquipamiento
+                {
+                    Seequipo = _equipoAppService.GetById(id)
+                };
+                return Ok(model);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ListaEquipos(string estado)
+        {
+            try
+            {
+                var model = new VMEquipamiento
+                {
+                    ListaSeequipo = _equipoAppService.ObtenerListaPorEstado(estado)
+                };
+
+                return Ok(model);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
     }

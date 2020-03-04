@@ -8,7 +8,7 @@ namespace Movisoft.Domain.Interfaces.Repository
 {
     public interface ISeequipoRepository : IDapperRepository<Seequipo>
     {
-        List<Seequipo> ObtenerListaEquipos();
+        List<Seequipo> ObtenerListaPorEstado(string estado);
         int Save(Seequipo seequipo, IDbConnection connection, IDbTransaction transaction);
     }
 }

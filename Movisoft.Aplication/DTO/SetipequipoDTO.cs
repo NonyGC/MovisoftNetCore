@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Movisoft.Aplication.DTO
 {
-    public class SetipequipoDTO: Setipequipo
+    public class SetipequipoDTO : Setipequipo
     {
 
     }

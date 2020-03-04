@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Movisoft.Infra.Data.Repository.Dapper
@@ -27,15 +28,18 @@ namespace Movisoft.Infra.Data.Repository.Dapper
             dbConnection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public void Add(TEntity obj) => dbConnection.Insert(obj);
+        public virtual object Add(TEntity obj) => dbConnection.Insert(obj);
 
         public virtual IEnumerable<TEntity> GetAll() =>dbConnection.GetAll<TEntity>();
 
         public virtual TEntity GetById(int? id) => dbConnection.Get<TEntity>(id);
 
-        public virtual void Remove(TEntity obj) => dbConnection.Delete(obj);
+        public virtual bool Remove(TEntity obj) => dbConnection.Delete(obj);
 
-        public virtual void Update(TEntity obj) => dbConnection.Update(obj);
+        public virtual bool Update(TEntity obj) => dbConnection.Update(obj);
+
+        public IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate) => dbConnection.Select(predicate);
+
 
         private bool _disposed = false;
 
@@ -51,5 +55,7 @@ namespace Movisoft.Infra.Data.Repository.Dapper
             }
             GC.SuppressFinalize(this);
         }
+
+
     }
 }

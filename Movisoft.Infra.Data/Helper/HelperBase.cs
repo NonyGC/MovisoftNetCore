@@ -1,10 +1,10 @@
-﻿using Movisoft.CrossCutting.Common.Resource;
+﻿using Movisoft.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace Movisoft.CrossCutting.Common.Helper
+namespace Movisoft.Infra.Data.Helper
 {
     public class HelperBase
     {

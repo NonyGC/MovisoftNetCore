@@ -8,6 +8,7 @@
       inner join se_tipequipo te on te.tequicodi=se.tequicodi
       inner join se_topologia tp on tp.topcodi=se.topcodi
       inner join si_empresa ep on ep.emprcodi=se.emprcodi
+      where se.equiestado='{0}'
     </query>
   </Sql>
 

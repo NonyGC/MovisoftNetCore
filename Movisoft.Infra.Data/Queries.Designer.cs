@@ -71,6 +71,7 @@ namespace Movisoft.Infra.Data {
         ///      inner join se_tipequipo te on te.tequicodi=se.tequicodi
         ///      inner join se_topologia tp on tp.topcodi=se.topcodi
         ///      inner join si_empresa ep on ep.emprcodi=se.emprcodi
+        ///      where se.equiestado=&apos;{0}&apos;
         ///    &lt;/query&gt;
         ///  &lt;/Sql&gt;
         ///
@@ -85,6 +86,26 @@ namespace Movisoft.Infra.Data {
         
         /// <summary>
         ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///.
+        /// </summary>
+        internal static string Setipequipo {
+            get {
+                return ResourceManager.GetString("Setipequipo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///&lt;Sqls&gt;
+        ///
+        ///  &lt;Sql&gt;
+        ///    &lt;key&gt;ObtenerListSelectItem&lt;/key&gt;
+        ///    &lt;query&gt;
+        ///      select emprcodi,emprnomb from si_empresa
+        ///    &lt;/query&gt;
+        ///  &lt;/Sql&gt;
+        ///
+        ///&lt;/Sqls&gt;
         ///.
         /// </summary>
         internal static string Siempresa {
