@@ -1,11 +1,14 @@
-﻿using Movisoft.Domain.Entity;
+﻿using FluentValidation.Results;
+using Movisoft.Domain.Common;
+using Movisoft.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Movisoft.Aplication.DTO
 {
-    public class SeequipoDTO : Seequipo
+
+    public  class SeequipoDTO : Seequipo
     {
     }
 }

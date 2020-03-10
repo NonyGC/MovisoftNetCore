@@ -103,7 +103,7 @@ function toastrMensajeError(jqXHR) {
             toastr.error("No se puede procesar la data enviada, debido a algo que es percibido como un error del cliente", 'Error!');
             break;
         case 401:
-            toastr.warning("No autorizado", 'Advertencia!');
+            toastr.error("No autorizado", 'Acceso denegado!');
             break;
         case 404:
             toastr.error("No se puede conectar con los servicios.", 'Error!');

@@ -13,7 +13,6 @@ using Movisoft.CrossCutting.Identity.Data;
 using Movisoft.CrossCutting.Identity.Models;
 using Movisoft.CrossCutting.IoC;
 using Movisoft.MVC.Extensions;
-using SmartBreadcrumbs.Extensions;
 
 namespace Movisoft.MVC
 {
@@ -123,7 +122,7 @@ namespace Movisoft.MVC
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Main}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();

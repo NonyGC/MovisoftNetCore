@@ -54,7 +54,7 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         // POST: TipoEquipo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SetipequipoDTO setipequipoDTO, [FromServices] SetipequipoValidadorInsertar validationRules)
+        public ActionResult Create(SetipequipoDTO setipequipoDTO, [FromServices] SetipequipoValidatorInsert validationRules)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         // POST: TipoEquipo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, SetipequipoDTO setipequipoDTO, [FromServices] SetipequipoValidadorActualizar validationRules)
+        public ActionResult Edit(int id, SetipequipoDTO setipequipoDTO, [FromServices] SetipequipoValidatorUpdate validationRules)
         {
             try
             {

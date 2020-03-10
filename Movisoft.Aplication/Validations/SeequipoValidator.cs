@@ -1,9 +1,12 @@
 ﻿using FluentValidation;
-using Movisoft.Aplication.DTO;
+using Movisoft.Domain.Entity;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Movisoft.Aplication.Validations
 {
-    public  class SeequipoValidador : AbstractValidator<SeequipoDTO>
+    public class SeequipoValidator : AbstractValidator<Seequipo>
     {
         protected void ValidarCodigo()
         {
@@ -29,12 +32,12 @@ namespace Movisoft.Aplication.Validations
         {
             RuleFor(x => x.Topcodi)
                 .NotEqual(default(int))
-                .WithMessage("Falta seleccionar la topologia.");  
-            
+                .WithMessage("Falta seleccionar la topologia.");
+
             RuleFor(x => x.Emprcodi)
                 .NotEqual(default(int))
-                .WithMessage("Falta seleccionar la empresa.");  
-            
+                .WithMessage("Falta seleccionar la empresa.");
+
             RuleFor(x => x.Tequicodi)
                 .NotEqual(default(int))
                 .WithMessage("Falta seleccionar el tipo de equipo.");
@@ -42,9 +45,9 @@ namespace Movisoft.Aplication.Validations
 
     }
 
-    public class SeequipoValidadorInsertar : SeequipoValidador
+    public class SeequipoValidatorInsert : SeequipoValidator
     {
-        public SeequipoValidadorInsertar()
+        public SeequipoValidatorInsert()
         {
             ValidarNombre();
             ValidarDependencias();
@@ -52,9 +55,9 @@ namespace Movisoft.Aplication.Validations
         }
     }
 
-    public class SeequipoValidadorActualizar : SeequipoValidador
+    public class SeequipoValidatorUpdate : SeequipoValidator
     {
-        public SeequipoValidadorActualizar()
+        public SeequipoValidatorUpdate()
         {
             ValidarCodigo();
             ValidarNombre();
@@ -62,6 +65,4 @@ namespace Movisoft.Aplication.Validations
             ValidarAbreatura();
         }
     }
-
-
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Movisoft.Aplication.DTO;
 using Movisoft.Aplication.Interface;
 using Movisoft.Domain.Interfaces.Repository;
 using System;

@@ -43,14 +43,14 @@ namespace Movisoft.CrossCutting.IoC
             services.AddScoped<ISetopologiaAppService, SetopologiaAppService>();
 
             //Validacion
-            services.AddScoped<SeequipoValidadorInsertar>();
-            services.AddScoped<SeequipoValidadorActualizar>();
+            services.AddScoped<SeequipoValidatorInsert>();
+            services.AddScoped<SeequipoValidatorUpdate>();
 
-            services.AddScoped<SetipequipoValidadorActualizar>();
-            services.AddScoped<SetipequipoValidadorInsertar>();
+            services.AddScoped<SetipequipoValidatorInsert>();
+            services.AddScoped<SetipequipoValidatorUpdate>();
 
-            services.AddScoped<SetopologiaValidadorInsertar>();
-            services.AddScoped<SetopologiaValidadorActualizar>();
+            services.AddScoped<SetopologiaValidatorInsert>();
+            services.AddScoped<SetopologiaValidatorUpdate>();
 
             #endregion
 
@@ -91,6 +91,7 @@ namespace Movisoft.CrossCutting.IoC
             services.AddScoped<RoleManager<ApplicationRole>>();
             services.AddScoped<IUser, AspNetUser>();
             services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IIdentityManagerService, IdentityManagerService>();
 
             #endregion
         }

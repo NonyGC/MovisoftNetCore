@@ -12,8 +12,8 @@ using Movisoft.MVC.Areas.Equipamiento.Models;
 
 namespace Movisoft.MVC.Areas.Equipamiento.Controllers
 {
-    [Area("Equipamiento")]
     [Authorize]
+    [Area("Equipamiento")]
     public class EquipoController : Controller
     {
         private readonly ILogger<EquipoController> _logger;
@@ -55,7 +55,7 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         // POST: Seequipo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SeequipoDTO seequipoDTO, [FromServices] SeequipoValidadorInsertar validationRules)
+        public ActionResult Create(SeequipoDTO seequipoDTO, [FromServices] SeequipoValidatorInsert validationRules)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         // POST: Seequipo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, SeequipoDTO seequipoDTO, [FromServices] SeequipoValidadorActualizar validationRules)
+        public ActionResult Edit(int id, SeequipoDTO seequipoDTO, [FromServices] SeequipoValidatorUpdate validationRules)
         {
             try
             {
@@ -167,3 +167,4 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         }
     }
 }
+

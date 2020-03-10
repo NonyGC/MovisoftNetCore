@@ -50,7 +50,7 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         // POST: Topologia/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SetopologiaDTO setopologiaDTO, [FromServices] SetopologiaValidadorInsertar validationRules)
+        public ActionResult Create(SetopologiaDTO setopologiaDTO, [FromServices] SetopologiaValidatorInsert validationRules)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
         // POST: Topologia/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, SetopologiaDTO setopologiaDTO, [FromServices] SetopologiaValidadorActualizar validationRules)
+        public ActionResult Edit(int id, SetopologiaDTO setopologiaDTO, [FromServices] SetopologiaValidatorUpdate validationRules)
         {
             try
             {

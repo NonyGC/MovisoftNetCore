@@ -24,7 +24,6 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="SmartBreadcrumbs" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,10 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Configuracion\Controllers\" />
     <Folder Include="Areas\Configuracion\Models\" />
     <Folder Include="Areas\Configuracion\Views\" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
 

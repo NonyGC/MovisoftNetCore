@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Movisoft.CrossCutting.Identity.Services;
 using Movisoft.MVC.Models;
-using SmartBreadcrumbs.Attributes;
 
 namespace Movisoft.MVC.Controllers
 {
@@ -24,18 +23,12 @@ namespace Movisoft.MVC.Controllers
             _menuService = menuService;
         }
 
-        public IActionResult Main()
+        public IActionResult Index()
         {
             return View();
         }
 
         public IActionResult Minor()
-        {
-
-            return View();
-        }
-
-        public IActionResult Index()
         {
             return View();
         }

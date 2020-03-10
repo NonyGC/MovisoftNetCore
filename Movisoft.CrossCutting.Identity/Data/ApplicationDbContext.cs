@@ -103,7 +103,7 @@ namespace Movisoft.CrossCutting.Identity.Data
             // define the database to use
             optionsBuilder.UseNpgsql(config.GetConnectionString("IdentityConnection"));
 
-            //optionsBuilder.UseNpgsql("Server=127.0.0.1;Database=MovisoftIdentity;Username=postgres;Password=Jscript0");
+            //optionsBuilder.UseNpgsql("Server=207.180.218.141;Database=MovisoftIdentity;Username=movisoft;Password=47896");
         }
 
         public DbSet<Menu> Menu { get; set; }

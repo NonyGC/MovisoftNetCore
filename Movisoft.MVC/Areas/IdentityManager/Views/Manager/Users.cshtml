@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+
+    <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+    <link href="~/lib/dataTables/select.dataTables.min.css" rel="stylesheet" />
+    <link href="~/lib/dataTables/buttons.dataTables.min.css" rel="stylesheet" />
+
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+
+                <div class="ibox-title">
+                    <h5>USUARIO</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+
+                    <table id="usersTable" class="table table-striped table-bordered" data-processing="true" data-server-side="true" data-ajax="/api/UserList">
+                        <thead>
+                            <tr>
+                                <th data-data="Id">Id</th>
+                                <th data-data="Email">Correo</th>
+                                <th data-data="UserName">Nombre usuario</th>
+                                <th data-data="DisplayName" data-default-content="" data-orderable="false">Nombre</th>
+                                <th data-data="Roles" data-orderable="false">Roles</th>
+                                <th data-data="LockedOut" data-orderable="false">Bloqueo</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="userModal" class="modal inmodal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Nuevo</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="userForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="/api/CreateUser" data-ajax-success="userDone" data-ajax-failure="userFail">
+                    <div id="userError" class="alert alert-danger" role="alert"></div>
+
+                    <div class="form-group">
+                        <label for="Username">Nombre usurio:</label>
+                        <input name="Username" type="text" class="form-control" required />
+
+                        <label for="ClaimValue">Nombre claim:</label>
+                        <input name="ClaimValue" type="text" class="form-control" />
+
+                        <label for="Email">Correo:</label>
+                        <input name="Email" type="email" class="form-control" required />
+
+                        <label for="Password">Contraseña:</label>
+                        <input name="Password" type="password" class="form-control" required />
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                <button id="btnAdd" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="editModal" class="modal inmodal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="/api/UpdateUser" data-ajax-success="editDone" data-ajax-failure="editFail">
+                    <div id="editError" class="alert alert-danger" role="alert"></div>
+
+                    <ul id="tabs" class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#user">Usuario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#roles">Roles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#claims">Claims</a>
+                        </li>
+                    </ul>
+
+                    <br />
+
+                    <div class="tab-content">
+                        <div id="user" class="tab-pane active">
+                            <div class="form-group">
+                                <label for="Email">Correo:</label>
+                                <input name="Email" type="email" class="form-control" required />
+                                <label for="Locked">Bloqueo:</label>
+                                <input name="Locked" type="checkbox" class="checkbox" value="true" style="display:flex">
+                                <input name="Id" type="hidden" />
+                            </div>
+                        </div>
+                        <div id="roles" class="tab-pane">
+                            <div class="form-group">
+                                @foreach (var role in ViewBag.Roles)
+                                {
+                                    <div class="checkbox">
+                                        <label><input name="Roles" type="checkbox" value="@role.Value">@role.Value</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div id="claims" class="tab-pane">
+                            <table id="claimsTable" class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Valor</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <select id="newType" asp-items="@(new SelectList(ViewBag.ClaimTypes))" class="form-control form-control-sm">
+                                                <option></option>
+                                            </select>
+                                        </td>
+                                        <td><input class="form-control form-control-sm" id="newValue" type="text"></td>
+                                        <td><a id="addClaim" href="#" class="btn btn-sm btn-success">Agregar</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                <button id="btnEdit" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pwdModal" title="Add User" class="modal inmodal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Constraseña</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="pwdForm" data-ajax="true" data-ajax-method="POST" data-ajax-url="/api/ResetPassword" data-ajax-success="pwdDone" data-ajax-failure="pwdFail">
+                    <div id="pwdError" class="alert alert-danger" role="alert"></div>
+
+                    <div class="form-group">
+                        <label for="Password">Constraseña:</label>
+                        <input name="Password" type="password" class="form-control" required />
+                        <label for="Verify">Verificar:</label>
+                        <input name="Verify" type="password" class="form-control" required />
+                        <input name="Id" type="hidden" />
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                <button id="btnPass" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/lib/dataTables/datatables.min.js"></script>
+    <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/dataTables/dataTables.select.min.js"></script>
+    <script src="~/lib/dataTables/dataTables.buttons.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.unobtrusive-ajax/3.2.5/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="~/js/general.js" asp-append-version="true"></script>
+    <script src="~/js/identitymanager/usuario.js" asp-append-version="true"></script>
+}

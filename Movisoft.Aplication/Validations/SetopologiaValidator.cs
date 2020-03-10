@@ -1,37 +1,39 @@
 ﻿using FluentValidation;
-using Movisoft.Aplication.DTO;
+using Movisoft.Domain.Entity;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Movisoft.Aplication.Validations
 {
-    public class SetipequipoValidador : AbstractValidator<SetipequipoDTO>
+    public class SetopologiaValidator : AbstractValidator<Setopologia>
     {
         protected void ValidarCodigo()
         {
-            RuleFor(x => x.Tequicodi)
+            RuleFor(x => x.Topcodi)
                 .NotEqual(default(int))
                 .WithMessage("Código no es valido."); ;
         }
 
         protected void ValidarNombre()
         {
-            RuleFor(x => x.Tequinomb)
+            RuleFor(x => x.Topnombre)
                 .NotEmpty().WithMessage("Falta ingresar el nombre.")
                 .Length(2, 50).WithMessage("El nombre debe tener entre 2 y 50 caracteres.");
         }
     }
 
-
-    public class SetipequipoValidadorInsertar : SetipequipoValidador
+    public class SetopologiaValidatorInsert : SetopologiaValidator
     {
-        public SetipequipoValidadorInsertar()
+        public SetopologiaValidatorInsert()
         {
             ValidarNombre();
         }
     }
 
-    public class SetipequipoValidadorActualizar : SetipequipoValidador
+    public class SetopologiaValidatorUpdate : SetopologiaValidator
     {
-        public SetipequipoValidadorActualizar()
+        public SetopologiaValidatorUpdate()
         {
             ValidarCodigo();
             ValidarNombre();
