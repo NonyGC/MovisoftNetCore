@@ -2,13 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Movisoft.Aplication.DTO;
+using Movisoft.Aplication.Interface.Entity;
+using Movisoft.MVC.Areas.Configuracion.Models;
 
 namespace Movisoft.MVC.Areas.Configuracion.Controllers
 {
+    [Authorize]
+    [Area("Configuracion")]
     public class EmpresaController : Controller
     {
+        private readonly ILogger<EmpresaController> _logger;
+        private readonly ISiempresaAppService _siempresaAppService;
+        private readonly ISitipempresaAppService _sitipempresaAppService;
+        public EmpresaController(ILogger<EmpresaController> logger, ISiempresaAppService siempresaAppService, ISitipempresaAppService sitipempresaAppService)
+        {
+            _logger = logger;
+            _siempresaAppService = siempresaAppService;
+            _sitipempresaAppService = sitipempresaAppService;
+        }
+
         // GET: Empresa
         public ActionResult Index()
         {
@@ -24,17 +41,18 @@ namespace Movisoft.MVC.Areas.Configuracion.Controllers
         // GET: Empresa/Create
         public ActionResult Create()
         {
-            return View();
+            var vm = new VMConfiguracion { ListaSitipempresa = _sitipempresaAppService.GetAll() };
+            return View(vm);
         }
 
         // POST: Empresa/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(SiempresaDTO siempresaDTO, int[] sirelempresas)
         {
             try
             {
-                // TODO: Add insert logic here
+                bool exito = _siempresaAppService.Insert(siempresaDTO, sirelempresas);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -87,6 +105,22 @@ namespace Movisoft.MVC.Areas.Configuracion.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult List()
+        {
+            try
+            {
+                var lstEmpresas = _siempresaAppService.GetListActivo();
+                return Ok(lstEmpresas);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
     }

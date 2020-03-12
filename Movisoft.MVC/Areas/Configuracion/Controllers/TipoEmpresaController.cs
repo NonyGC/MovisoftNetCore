@@ -2,47 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Movisoft.Aplication.DTO;
 using Movisoft.Aplication.Interface.Entity;
 using Movisoft.Aplication.Validations;
-using Movisoft.MVC.Areas.Equipamiento.Models;
 
-namespace Movisoft.MVC.Areas.Equipamiento.Controllers
+namespace Movisoft.MVC.Areas.Configuracion.Controllers
 {
-    [Area("Equipamiento")]
-    [Authorize]
-    public class TipoEquipoController : Controller
+    [Area("Configuracion")]
+    public class TipoEmpresaController : Controller
     {
-        private readonly ILogger<TipoEquipoController> _logger;
-        private readonly ISetipequipoAppService _setipequipoAppService;
-
-        public TipoEquipoController(ILogger<TipoEquipoController> logger, ISetipequipoAppService setipequipoAppService)
+        private readonly ILogger<TipoEmpresaController> _logger;
+        private readonly ISitipempresaAppService _sitipempresaAppService;
+        public TipoEmpresaController(ILogger<TipoEmpresaController> logger, ISitipempresaAppService sitipempresaAppService)
         {
-            _setipequipoAppService = setipequipoAppService;
             _logger = logger;
+            _sitipempresaAppService = sitipempresaAppService;
         }
 
-        // GET: TipoEquipo
+        // GET: TipoEmpresa
         public ActionResult Index()
         {
             return View();
         }
 
-
-        // GET: TipoEquipo/Details/5
+        // GET: TipoEmpresa/Details/5
         public ActionResult Details(int id)
         {
             try
             {
-                var model = new VMEquipamiento
-                {
-                    Setipequipo = _setipequipoAppService.GetById(id)
-                };
-                return Ok(model);
+                var tipoempresa = _sitipempresaAppService.GetById(id);
+                return Ok(tipoempresa);
             }
             catch (Exception e)
             {
@@ -51,21 +43,27 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
             }
         }
 
-        // POST: TipoEquipo/Create
+        // GET: TipoEmpresa/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: TipoEmpresa/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SetipequipoDTO setipequipoDTO, [FromServices] SetipequipoInsertValidator validationRules)
+        public ActionResult Create(SitipempresaDTO sitipempresaDTO, [FromServices] SitipempresaInsertValidator validationRules)
         {
             try
             {
-                var validador = validationRules.Validate(setipequipoDTO);
+                var validador = validationRules.Validate(sitipempresaDTO);
 
                 if (!validador.IsValid)
                     return BadRequest(validador);
 
-                var id = _setipequipoAppService.Insertar(setipequipoDTO);
+                var id = _sitipempresaAppService.Add(sitipempresaDTO);
 
-                if (id.HasValue)
+                if (id != null)
                     return Ok(id);
 
                 return BadRequest();
@@ -77,19 +75,19 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
             }
         }
 
-        // POST: TipoEquipo/Edit/5
+        // POST: TipoEmpresa/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, SetipequipoDTO setipequipoDTO, [FromServices] SetipequipoUpdateValidator validationRules)
+        public ActionResult Edit(int id, SitipempresaDTO setopologiaDTO, [FromServices] SitipempresaUpdateValidator validationRules)
         {
             try
             {
-                var validador = validationRules.Validate(setipequipoDTO);
+                var validador = validationRules.Validate(setopologiaDTO);
 
                 if (!validador.IsValid)
                     return BadRequest(validador);
 
-                var exito = _setipequipoAppService.Actualizar(setipequipoDTO);
+                var exito = _sitipempresaAppService.Update(setopologiaDTO);
 
                 if (exito)
                     return Ok();
@@ -103,12 +101,14 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
             }
         }
 
+        // POST: TipoEmpresa/Delete/5
         [HttpDelete]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             try
             {
-                bool exito = _setipequipoAppService.ActualizarAEstadoInactivo(id);
+                bool exito = _sitipempresaAppService.RemoveById(id);
                 if (exito)
                 {
                     return Ok(exito);
@@ -122,18 +122,13 @@ namespace Movisoft.MVC.Areas.Equipamiento.Controllers
             }
         }
 
-
         [HttpGet]
-        public ActionResult List(string estado)
+        public ActionResult List()
         {
             try
             {
-                var model = new VMEquipamiento
-                {
-                    ListaSetipequipo = _setipequipoAppService.ObtenerListaPorEstado(estado)
-                };
-
-                return Ok(model);
+                var lstTipoempresa = _sitipempresaAppService.GetAll();
+                return Ok(lstTipoempresa);
             }
             catch (Exception e)
             {

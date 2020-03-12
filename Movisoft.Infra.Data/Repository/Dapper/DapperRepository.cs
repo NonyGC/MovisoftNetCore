@@ -36,6 +36,8 @@ namespace Movisoft.Infra.Data.Repository.Dapper
 
         public virtual bool Remove(TEntity obj) => dbConnection.Delete(obj);
 
+        public virtual bool RemoveById(int? id) => Remove(GetById(id));
+
         public virtual bool Update(TEntity obj) => dbConnection.Update(obj);
 
         public IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate) => dbConnection.Select(predicate);
@@ -51,6 +53,7 @@ namespace Movisoft.Infra.Data.Repository.Dapper
             {
                 dbConnection.Close();
                 dbConnection.Dispose();
+                
                 _disposed = true;
             }
             GC.SuppressFinalize(this);

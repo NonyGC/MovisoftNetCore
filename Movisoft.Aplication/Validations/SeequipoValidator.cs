@@ -45,9 +45,9 @@ namespace Movisoft.Aplication.Validations
 
     }
 
-    public class SeequipoValidatorInsert : SeequipoValidator
+    public class SeequipoInsertValidator : SeequipoValidator
     {
-        public SeequipoValidatorInsert()
+        public SeequipoInsertValidator()
         {
             ValidarNombre();
             ValidarDependencias();
@@ -55,9 +55,9 @@ namespace Movisoft.Aplication.Validations
         }
     }
 
-    public class SeequipoValidatorUpdate : SeequipoValidator
+    public class SeequipoUpdateValidator : SeequipoValidator
     {
-        public SeequipoValidatorUpdate()
+        public SeequipoUpdateValidator()
         {
             ValidarCodigo();
             ValidarNombre();

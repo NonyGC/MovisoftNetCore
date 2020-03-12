@@ -1,5 +1,5 @@
 ﻿var urlController = '/equipamiento/Topologia';
-var tblTipoequipo;
+var tblPrincipal;
 $(function () {
 
 
@@ -18,7 +18,7 @@ $(function () {
             data: dataJson
         })
             .done(function (data, textStatus, jqXHR) {
-                obtenerListaTopologia();
+                listar();
                 toastr.success('Se ejecutó correctamente.', 'Éxito', { timeOut: 5000 });
                 $('#modalTopologia').modal('hide');
             })
@@ -28,7 +28,7 @@ $(function () {
             });
     });
 
-    tblTipoequipo = $('#tblTopologia').DataTable({
+    tblPrincipal = $('#tblTopologia').DataTable({
         pageLength: 25,
         columns: [
             { data: "Topcodi", width: "10%" },
@@ -48,18 +48,18 @@ $(function () {
     });
 
     $("#cboEstado").change(function () {
-        obtenerListaTopologia();
+        listar();
     });
 
     $('#modalTopologia').on('hidden.bs.modal', function (e) {
         limpiarFormulario();
     });
 
-    obtenerListaTopologia();
+    listar();
 });
 
 
-function obtenerListaTopologia() {
+function listar() {
     var valEstado = $("#cboEstado").val();
 
     $.ajax({
@@ -71,8 +71,8 @@ function obtenerListaTopologia() {
         }
     })
         .done(function (data, textStatus, jqXHR) {
-            tblTipoequipo.clear().draw();
-            tblTipoequipo.rows.add(data.ListaSetopologia).draw();
+            tblPrincipal.clear().draw();
+            tblPrincipal.rows.add(data.ListaSetopologia).draw();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             toastrMensajeError(jqXHR);
@@ -111,7 +111,7 @@ function eliminarTopologia(id) {
                         url: `${urlController}/Delete/${id}`
                     })
                         .done(function (data, textStatus, jqXHR) {
-                            obtenerListaTopologia();
+                            listar();
                             toastr.success('Se ejecutó correctamente.', 'Éxito', { timeOut: 5000 });
                         })
                         .fail(function (jqXHR, textStatus, errorThrown) {

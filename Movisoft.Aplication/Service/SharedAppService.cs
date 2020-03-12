@@ -13,12 +13,14 @@ namespace Movisoft.Aplication.Service
         private readonly ISetipequipoRepository _setipequipoRepository;
         private readonly ISiempresaRepository _siempresaRepository;
         private readonly ISetopologiaRepository _setopologiaRepository;
+        private readonly ISitipempresaRepository _sitipempresaRepository;
         public SharedAppService(ISetipequipoRepository setipequipoRepository, ISiempresaRepository siempresaRepository,
-            ISetopologiaRepository setopologiaRepository)
+            ISetopologiaRepository setopologiaRepository, ISitipempresaRepository sitipempresaRepository)
         {
             _setipequipoRepository = setipequipoRepository;
             _siempresaRepository = siempresaRepository;
             _setopologiaRepository = setopologiaRepository;
+            _sitipempresaRepository = sitipempresaRepository;
         }
         public List<SelectListItemDTO> ObtenerSelectItemEmpresa()
         {
@@ -42,5 +44,13 @@ namespace Movisoft.Aplication.Service
                 .Select(x => new SelectListItemDTO { Value = x.Topcodi, Text = x.Topnombre })
                 .ToList();
         }
+
+        public List<SelectListItemDTO> ObtenerSelectItemTipoEmpresa()
+        {
+            return _sitipempresaRepository.GetAll()
+                .Select(x => new SelectListItemDTO { Value = x.Tempcodi, Text = x.Tempdesc })
+                .ToList();
+        }
+
     }
 }

@@ -22,7 +22,9 @@
         <link rel="stylesheet" href="~/css/animate.css" />
         <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     </environment>
-    <link href="~/lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/lib/jquery-confirm/jquery-confirm.min.css" />
+    <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
 
 </head>
 <body>
@@ -39,6 +41,15 @@
 
             <!-- Top Navbar -->
             <partial name="_TopNavbar" />
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    @RenderSection("TituloCabecera", required: false)
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
 
             <!-- Main view  -->
             @RenderBody()
@@ -73,7 +84,9 @@
         <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>
         <script src="~/js/script.js" asp-append-version="true"></script>
     </environment>
+
     <script src="~/lib/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src="~/lib/toastr/toastr.min.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>

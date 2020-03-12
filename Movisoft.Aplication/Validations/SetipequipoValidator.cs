@@ -24,17 +24,17 @@ namespace Movisoft.Aplication.Validations
     }
 
 
-    public class SetipequipoValidatorInsert : SetipequipoValidator
+    public class SetipequipoInsertValidator : SetipequipoValidator
     {
-        public SetipequipoValidatorInsert()
+        public SetipequipoInsertValidator()
         {
             ValidarNombre();
         }
     }
 
-    public class SetipequipoValidatorUpdate: SetipequipoValidator
+    public class SetipequipoUpdateValidator: SetipequipoValidator
     {
-        public SetipequipoValidatorUpdate()
+        public SetipequipoUpdateValidator()
         {
             ValidarCodigo();
             ValidarNombre();

@@ -1,9 +1,11 @@
 ﻿using Dapper;
+using Dommel;
 using Microsoft.Extensions.Configuration;
 using Movisoft.Domain.Entity;
 using Movisoft.Domain.Interfaces.Repository;
 using Movisoft.Infra.Data.Helper;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Movisoft.Infra.Data.Repository.Dapper
 {
@@ -19,6 +21,11 @@ namespace Movisoft.Infra.Data.Repository.Dapper
         public IEnumerable<Siempresa> ObtenerListSelectItem()
         {
             return dbConnection.Query<Siempresa>(_siempresaHelper.SqlObtenerListSelectItem);
+        }
+
+        public int? Save(Siempresa siempresa, IDbConnection connection, IDbTransaction transaction)
+        {
+            return (int?)connection.Insert(siempresa, transaction);
         }
     }
 }

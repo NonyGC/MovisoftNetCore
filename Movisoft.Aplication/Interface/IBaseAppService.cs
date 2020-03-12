@@ -14,6 +14,7 @@ namespace Movisoft.Aplication.Interface
         IEnumerable<ObjectDTO> GetAll();
         bool Update(ObjectDTO obj);
         bool Remove(ObjectDTO obj);
+        bool RemoveById(int? id);
         IEnumerable<ObjectDTO> GetList(Expression<Func<TEntity, bool>> predicate);
     }
 }

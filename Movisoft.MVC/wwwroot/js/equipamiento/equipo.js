@@ -1,5 +1,5 @@
 ﻿var urlController = '/equipamiento/Equipo';
-var tblTipoequipo;
+var tblPrincipal;
 $(function () {
 
 
@@ -30,7 +30,7 @@ $(function () {
 
     });
 
-    tblTipoequipo = $('#tblEquipo').DataTable({
+    tblPrincipal = $('#tblEquipo').DataTable({
         pageLength: 25,
         columns: [
             { data: "Equicodi", width: "5%" },
@@ -76,8 +76,8 @@ function obtenerListaEquipos() {
     })
         .done(function (data, textStatus, jqXHR) {
             var lstEquipo = ListEquipotDTOtoDatattable(data.ListaSeequipo);
-            tblTipoequipo.clear().draw();
-            tblTipoequipo.rows.add(lstEquipo).draw();
+            tblPrincipal.clear().draw();
+            tblPrincipal.rows.add(lstEquipo).draw();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             toastrMensajeError(jqXHR);

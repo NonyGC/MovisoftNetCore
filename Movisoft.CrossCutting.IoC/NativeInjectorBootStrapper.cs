@@ -41,16 +41,21 @@ namespace Movisoft.CrossCutting.IoC
             services.AddScoped<ISeequipoAppService, SeequipoAppService>();
             services.AddScoped<ISetipequipoAppService, SetipequipoAppService>();
             services.AddScoped<ISetopologiaAppService, SetopologiaAppService>();
+            services.AddScoped<ISiempresaAppService, SiempresaAppService>();
+            services.AddScoped<ISitipempresaAppService, SitipempresaAppService>();
 
             //Validacion
-            services.AddScoped<SeequipoValidatorInsert>();
-            services.AddScoped<SeequipoValidatorUpdate>();
+            services.AddScoped<SeequipoInsertValidator>();
+            services.AddScoped<SeequipoUpdateValidator>();
 
-            services.AddScoped<SetipequipoValidatorInsert>();
-            services.AddScoped<SetipequipoValidatorUpdate>();
+            services.AddScoped<SetipequipoInsertValidator>();
+            services.AddScoped<SetipequipoUpdateValidator>();
 
-            services.AddScoped<SetopologiaValidatorInsert>();
-            services.AddScoped<SetopologiaValidatorUpdate>();
+            services.AddScoped<SetopologiaInsertValidator>();
+            services.AddScoped<SetopologiaUpdateValidator>();
+
+            services.AddScoped<SitipempresaInsertValidator>();
+            services.AddScoped<SitipempresaUpdateValidator>();
 
             #endregion
 
@@ -78,6 +83,8 @@ namespace Movisoft.CrossCutting.IoC
             services.AddScoped<ISetipequipoRepository, SetipequipoRepository>();
             services.AddScoped<ISetopologiaRepository, SetopologiaRepository>();
             services.AddScoped<ISiempresaRepository, SiempresaRepository>();
+            services.AddScoped<ISiempresaRepository, SiempresaRepository>();
+            services.AddScoped<ISitipempresaRepository, SitipempresaRepository>();
 
             services.AddScoped<SeequipoHelper>();
             services.AddScoped<SiempresaHelper>();

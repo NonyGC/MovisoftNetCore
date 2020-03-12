@@ -55,5 +55,10 @@ namespace Movisoft.Aplication.Service
         {
             return _mapper.Map<IEnumerable<ObjectDTO>>(_dapperRepository.GetList(predicate)).AsEnumerable();
         }
+
+        public bool RemoveById(int? id)
+        {
+            return _dapperRepository.RemoveById(id);
+        }
     }
 }

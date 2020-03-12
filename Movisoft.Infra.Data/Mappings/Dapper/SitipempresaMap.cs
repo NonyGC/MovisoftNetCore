@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Movisoft.Infra.Data.Mappings.Dapper
 {
-    public class SiempresaMap : DommelEntityMap<Siempresa>
+    public class SitipempresaMap : DommelEntityMap<Sitipempresa>
     {
-        public SiempresaMap()
+        public SitipempresaMap()
         {
-            ToTable("si_empresa");
-            Map(p => p.Emprcodi).IsKey().IsIdentity();
+            ToTable("si_tipempresa");
+            Map(x => x.Tempcodi).IsKey().IsIdentity();
         }
     }
 }

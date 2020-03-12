@@ -12,6 +12,7 @@ namespace Movisoft.Domain.Interfaces.Repository
         IEnumerable<TEntity> GetAll();
         bool Update(TEntity obj);
         bool Remove(TEntity obj);
+        bool RemoveById(int? id);
         IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);
     }
 }

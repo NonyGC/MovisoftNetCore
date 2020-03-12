@@ -23,17 +23,17 @@ namespace Movisoft.Aplication.Validations
         }
     }
 
-    public class SetopologiaValidatorInsert : SetopologiaValidator
+    public class SetopologiaInsertValidator : SetopologiaValidator
     {
-        public SetopologiaValidatorInsert()
+        public SetopologiaInsertValidator()
         {
             ValidarNombre();
         }
     }
 
-    public class SetopologiaValidatorUpdate : SetopologiaValidator
+    public class SetopologiaUpdateValidator : SetopologiaValidator
     {
-        public SetopologiaValidatorUpdate()
+        public SetopologiaUpdateValidator()
         {
             ValidarCodigo();
             ValidarNombre();

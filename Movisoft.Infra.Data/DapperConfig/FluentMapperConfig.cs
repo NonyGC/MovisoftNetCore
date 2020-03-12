@@ -17,6 +17,7 @@ namespace Movisoft.Infra.Data.DapperConfig
                 x.AddMap(new SetipequipoMap());
                 x.AddMap(new SetopologiaMap());
                 x.AddMap(new SiempresaMap());
+                x.AddMap(new SitipempresaMap());
                 x.ForDommel();
             });
         }

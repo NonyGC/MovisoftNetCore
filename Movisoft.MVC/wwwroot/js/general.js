@@ -138,3 +138,11 @@ function impimirErrorValidacion(jqXHR, content) {
         }
     }
 }
+
+/** 
+ * Permite obtener el token de verificación
+ * @returns {string} token
+ */
+function getRequestVerificationToken() {
+    return $("input[name=__RequestVerificationToken]").val();
+}
